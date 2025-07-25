@@ -129,7 +129,7 @@ export default function Canvas({
     e.dataTransfer.setData("application/json", JSON.stringify(dragData))
   }
 
-  const renderComponent = (component: EditorComponent): JSX.Element => {
+  const renderComponent = (component: EditorComponent): React.JSX.Element => {
     const isSelected = selectedComponent?.id === component.id
     const canHaveChildren = ["div", "card", "grid"].includes(component.type)
 
@@ -143,7 +143,6 @@ export default function Canvas({
     }
 
     const commonProps = {
-      key: component.id,
       style,
       className: baseClasses,
       onClick: (e: React.MouseEvent) => handleComponentClick(e, component),
@@ -155,27 +154,32 @@ export default function Canvas({
     switch (component.type) {
       case "button":
         return (
-          <button {...commonProps}>{component.props.text || "Button"}</button>
+          <button key={component.id} {...commonProps}>
+            {component.props.text || "Button"}
+          </button>
         )
 
       case "input":
         return (
           <input
+            key={component.id}
             {...commonProps}
             type={component.props.type || "text"}
             placeholder={component.props.placeholder}
-            draggable={true}
           />
         )
 
       case "text":
         return (
-          <span {...commonProps}>{component.props.text || "Text Element"}</span>
+          <span key={component.id} {...commonProps}>
+            {component.props.text || "Text Element"}
+          </span>
         )
 
       case "image":
         return (
           <img
+            key={component.id}
             {...commonProps}
             src={
               component.props.src ||
@@ -192,6 +196,7 @@ export default function Canvas({
       case "grid":
         return (
           <div
+            key={component.id}
             {...commonProps}
             onDrop={(e) => handleDrop(e, component.id)}
             onDragOver={handleDragOver}
@@ -206,7 +211,11 @@ export default function Canvas({
         )
 
       default:
-        return <div {...commonProps}>Unknown Component</div>
+        return (
+          <div key={component.id} {...commonProps}>
+            Unknown Component
+          </div>
+        )
     }
   }
 
