@@ -25,6 +25,8 @@ export interface ComponentStyle {
   left?: string
   right?: string
   bottom?: string
+  gridTemplateColumns?: string
+  boxShadow?: string
 }
 
 export interface ComponentProps {
