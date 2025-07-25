@@ -3,6 +3,7 @@
 import type { EditorComponent, DragItem } from "../types/editor"
 import { createNewComponent } from "../utils/dragDrop"
 import type React from "react"
+import Image from "next/image"
 
 interface CanvasProps {
   components: EditorComponent[]
@@ -178,7 +179,7 @@ export default function Canvas({
 
       case "image":
         return (
-          <img
+          <Image
             key={component.id}
             {...commonProps}
             src={
