@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import type { DragItem } from "../types/editor"
 
 const COMPONENT_TYPES = [
@@ -21,18 +20,20 @@ export default function ComponentPalette() {
   }
 
   return (
-    <div className="w-64 bg-gray-50 border-r border-gray-200 p-4">
-      <h3 className="text-lg font-semibold mb-4 text-gray-800">Components</h3>
+    <div className="w-64 bg-black border-r border-gray-800 p-4">
+      <h3 className="text-sm font-medium mb-4 text-gray-300 uppercase tracking-wide">
+        Components
+      </h3>
       <div className="space-y-2">
         {COMPONENT_TYPES.map(({ type, label, icon }) => (
           <div
             key={type}
             draggable
             onDragStart={(e) => handleDragStart(e, type)}
-            className="flex items-center gap-3 p-3 bg-white border border-gray-200 rounded-lg cursor-move hover:bg-blue-50 hover:border-blue-300 transition-colors"
+            className="flex items-center gap-3 p-3 bg-gray-900 border border-gray-800 rounded-lg cursor-move hover:bg-gray-800 hover:border-gray-700 transition-all duration-200"
           >
-            <span className="text-xl">{icon}</span>
-            <span className="text-sm font-medium text-gray-700">{label}</span>
+            <span className="text-lg">{icon}</span>
+            <span className="text-sm font-medium text-white">{label}</span>
           </div>
         ))}
       </div>
