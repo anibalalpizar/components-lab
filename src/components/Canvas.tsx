@@ -133,7 +133,7 @@ export default function Canvas({
     const isSelected = selectedComponent?.id === component.id
     const canHaveChildren = ["div", "card", "grid"].includes(component.type)
 
-    const baseClasses = `relative ${isSelected ? "ring-2 ring-blue-500" : ""} ${
+    const baseClasses = `relative ${isSelected ? "ring-2 ring-white" : ""} ${
       canHaveChildren ? "min-h-[50px]" : ""
     }`
 
@@ -202,7 +202,7 @@ export default function Canvas({
             onDragOver={handleDragOver}
           >
             {component.children.length === 0 && (
-              <div className="absolute inset-0 flex items-center justify-center text-gray-400 text-sm pointer-events-none">
+              <div className="absolute inset-0 flex items-center justify-center text-gray-500 text-sm pointer-events-none">
                 Drop components here
               </div>
             )}
@@ -228,10 +228,10 @@ export default function Canvas({
     >
       <div className="min-h-full border-2 border-dashed border-gray-300 rounded-lg p-4">
         {components.length === 0 ? (
-          <div className="flex items-center justify-center h-64 text-gray-400">
+          <div className="flex items-center justify-center h-64 text-gray-500">
             <div className="text-center">
-              <p className="text-lg mb-2">Canvas is empty</p>
-              <p className="text-sm">
+              <p className="text-lg mb-2 font-medium">Canvas is empty</p>
+              <p className="text-sm text-gray-400">
                 Drag components from the left panel to start building
               </p>
             </div>
