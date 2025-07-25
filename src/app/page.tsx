@@ -1,12 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import type { EditorComponent } from "../types/editor"
-import { findComponentById, removeComponentById } from "../utils/dragDrop"
 import ComponentPalette from "../components/ComponentPalette"
 import Canvas from "../components/Canvas"
 import PropertiesPanel from "../components/PropertiesPanel"
 import CodePreview from "../components/CodePreview"
+import type { EditorComponent } from "../types/editor"
+import { findComponentById, removeComponentById } from "../utils/dragDrop"
 
 export default function VisualEditor() {
   const [components, setComponents] = useState<EditorComponent[]>([])
