@@ -2,6 +2,8 @@
 
 import type { EditorComponent } from "../types/editor"
 import { generateTSXCode } from "../utils/codeGenerator"
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism"
 
 interface CodePreviewProps {
   components: EditorComponent[]
@@ -31,9 +33,21 @@ export default function CodePreview({ components }: CodePreviewProps) {
         </button>
       </div>
       <div className="flex-1 overflow-auto">
-        <pre className="p-4 text-sm leading-relaxed">
-          <code className="text-green-400">{code}</code>
-        </pre>
+        <SyntaxHighlighter
+          language="tsx"
+          style={vscDarkPlus}
+          customStyle={{
+            margin: 0,
+            padding: "16px",
+            fontSize: "14px",
+            lineHeight: "1.5",
+            background: "transparent",
+          }}
+          showLineNumbers={true}
+          wrapLines={true}
+        >
+          {code}
+        </SyntaxHighlighter>
       </div>
     </div>
   )
