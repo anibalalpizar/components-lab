@@ -54,17 +54,22 @@ export default function VisualEditor() {
   }
 
   return (
-    <div className="h-screen flex flex-col bg-gray-100">
-      <div className="bg-white border-b border-gray-200 px-4 py-2 flex justify-between items-center">
-        <h1 className="text-xl font-semibold text-gray-800">
-          Visual Component Editor
-        </h1>
+    <div className="h-screen flex flex-col bg-black text-white">
+      <div className="bg-black border-b border-gray-800 px-6 py-4 flex justify-between items-center">
+        <div className="flex items-center gap-3">
+          <div className="w-6 h-6 bg-white rounded-sm flex items-center justify-center">
+            <div className="w-3 h-3 bg-black rounded-sm"></div>
+          </div>
+          <h1 className="text-lg font-medium text-white">
+            Visual Component Editor
+          </h1>
+        </div>
         <button
           onClick={() => setShowCodePreview(!showCodePreview)}
-          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+          className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 border ${
             showCodePreview
-              ? "bg-blue-600 text-white hover:bg-blue-700"
-              : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              ? "bg-white text-black border-white hover:bg-gray-100"
+              : "bg-black text-white border-gray-700 hover:border-gray-600 hover:bg-gray-900"
           }`}
         >
           {showCodePreview ? "Hide Code" : "Show Code"}
