@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import type { EditorComponent } from "../types/editor"
-import { findComponentById } from "../utils/dragDrop"
+import { findComponentById, removeComponentById } from "../utils/dragDrop"
 import ComponentPalette from "../components/ComponentPalette"
 import Canvas from "../components/Canvas"
 import PropertiesPanel from "../components/PropertiesPanel"
@@ -49,18 +49,24 @@ export default function VisualEditor() {
     setComponents(updateComponentInTree(components))
   }
 
+  const handleDeleteComponent = (id: string) => {
+    const updatedComponents = removeComponentById(components, id)
+    setComponents(updatedComponents)
+    setSelectedComponent(null)
+  }
+
   const handleSelectComponent = (component: EditorComponent | null) => {
     setSelectedComponent(component)
   }
 
   return (
-    <div className="h-screen flex flex-col bg-black text-white">
-      <div className="bg-black border-b border-gray-800 px-6 py-4 flex justify-between items-center">
+    <div className="h-screen flex flex-col bg-background text-foreground">
+      <div className="bg-background border-b border-border px-6 py-4 flex justify-between items-center">
         <div className="flex items-center gap-3">
-          <div className="w-6 h-6 bg-white rounded-sm flex items-center justify-center">
-            <div className="w-3 h-3 bg-black rounded-sm"></div>
+          <div className="w-6 h-6 bg-primary rounded-sm flex items-center justify-center">
+            <div className="w-3 h-3 bg-primary-foreground rounded-sm"></div>
           </div>
-          <h1 className="text-lg font-medium text-white">
+          <h1 className="text-lg font-medium text-foreground">
             Visual Component Editor
           </h1>
         </div>
@@ -68,8 +74,8 @@ export default function VisualEditor() {
           onClick={() => setShowCodePreview(!showCodePreview)}
           className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 border ${
             showCodePreview
-              ? "bg-white text-black border-white hover:bg-gray-100"
-              : "bg-black text-white border-gray-700 hover:border-gray-600 hover:bg-gray-900"
+              ? "bg-primary text-primary-foreground border-primary hover:bg-primary/90"
+              : "bg-background text-foreground border-border hover:bg-accent hover:text-accent-foreground"
           }`}
         >
           {showCodePreview ? "Hide Code" : "Show Code"}
@@ -89,6 +95,7 @@ export default function VisualEditor() {
         <PropertiesPanel
           selectedComponent={selectedComponent}
           onUpdateComponent={handleUpdateComponent}
+          onDeleteComponent={handleDeleteComponent}
         />
 
         {showCodePreview && <CodePreview components={components} />}
