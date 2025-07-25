@@ -1,6 +1,7 @@
 export interface ComponentStyle {
   width?: string
   height?: string
+  minHeight?: string
   backgroundColor?: string
   color?: string
   fontSize?: string
@@ -27,6 +28,7 @@ export interface ComponentStyle {
   bottom?: string
   gridTemplateColumns?: string
   boxShadow?: string
+  cursor?: string
 }
 
 export interface ComponentProps {
