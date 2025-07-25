@@ -9,7 +9,14 @@ export const createNewComponent = (type: string): EditorComponent => {
 
   const baseComponent: EditorComponent = {
     id,
-    type: type as any,
+    type: type as
+      | "button"
+      | "input"
+      | "text"
+      | "image"
+      | "div"
+      | "card"
+      | "grid",
     props: {},
     style: {
       padding: "8px",
