@@ -1,12 +1,12 @@
 "use client"
 
 import { useState } from "react"
+import type { EditorComponent } from "../types/editor"
+import { findComponentById } from "../utils/dragDrop"
 import ComponentPalette from "../components/ComponentPalette"
 import Canvas from "../components/Canvas"
 import PropertiesPanel from "../components/PropertiesPanel"
 import CodePreview from "../components/CodePreview"
-import type { EditorComponent } from "../types/editor"
-import { findComponentById, removeComponentById } from "../utils/dragDrop"
 
 export default function VisualEditor() {
   const [components, setComponents] = useState<EditorComponent[]>([])
@@ -17,6 +17,7 @@ export default function VisualEditor() {
   const handleUpdateComponents = (newComponents: EditorComponent[]) => {
     setComponents(newComponents)
 
+    // Update selected component if it still exists
     if (selectedComponent) {
       const updatedSelected = findComponentById(
         newComponents,
@@ -49,18 +50,13 @@ export default function VisualEditor() {
     setComponents(updateComponentInTree(components))
   }
 
-  const handleDeleteComponent = (id: string) => {
-    const updatedComponents = removeComponentById(components, id)
-    setComponents(updatedComponents)
-    setSelectedComponent(null)
-  }
-
   const handleSelectComponent = (component: EditorComponent | null) => {
     setSelectedComponent(component)
   }
 
   return (
     <div className="h-screen flex flex-col bg-background text-foreground">
+      {/* Header with toggle button */}
       <div className="bg-background border-b border-border px-6 py-4 flex justify-between items-center">
         <div className="flex items-center gap-3">
           <div className="w-6 h-6 bg-primary rounded-sm flex items-center justify-center">
@@ -82,9 +78,12 @@ export default function VisualEditor() {
         </button>
       </div>
 
+      {/* Main editor area */}
       <div className="flex-1 flex">
+        {/* Component Palette */}
         <ComponentPalette />
 
+        {/* Canvas */}
         <Canvas
           components={components}
           selectedComponent={selectedComponent}
@@ -92,12 +91,13 @@ export default function VisualEditor() {
           onSelectComponent={handleSelectComponent}
         />
 
+        {/* Properties Panel */}
         <PropertiesPanel
           selectedComponent={selectedComponent}
           onUpdateComponent={handleUpdateComponent}
-          onDeleteComponent={handleDeleteComponent}
         />
 
+        {/* Code Preview - conditionally rendered */}
         {showCodePreview && <CodePreview components={components} />}
       </div>
     </div>
