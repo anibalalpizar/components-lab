@@ -1,10 +1,8 @@
 "use client"
 
-import type React from "react"
-import Image from "next/image"
-
 import type { EditorComponent, DragItem } from "../types/editor"
 import { createNewComponent } from "../utils/dragDrop"
+import type React from "react"
 
 interface CanvasProps {
   components: EditorComponent[]
@@ -180,7 +178,7 @@ export default function Canvas({
 
       case "image":
         return (
-          <Image
+          <img
             key={component.id}
             {...commonProps}
             src={
@@ -223,17 +221,17 @@ export default function Canvas({
 
   return (
     <div
-      className="flex-1 bg-white p-8 overflow-auto"
+      className="flex-1 bg-background p-8 overflow-auto"
       onDrop={(e) => handleDrop(e)}
       onDragOver={handleDragOver}
       onClick={() => onSelectComponent(null)}
     >
-      <div className="min-h-full border-2 border-dashed border-gray-300 rounded-lg p-4">
+      <div className="min-h-full border-2 border-dashed border-border rounded-lg p-4">
         {components.length === 0 ? (
-          <div className="flex items-center justify-center h-64 text-gray-500">
+          <div className="flex items-center justify-center h-64 text-muted-foreground">
             <div className="text-center">
               <p className="text-lg mb-2 font-medium">Canvas is empty</p>
-              <p className="text-sm text-gray-400">
+              <p className="text-sm text-muted-foreground/70">
                 Drag components from the left panel to start building
               </p>
             </div>
