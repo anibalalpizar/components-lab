@@ -5,11 +5,13 @@ import type { EditorComponent } from "../types/editor"
 interface PropertiesPanelProps {
   selectedComponent: EditorComponent | null
   onUpdateComponent: (id: string, updates: Partial<EditorComponent>) => void
+  onDeleteComponent: (id: string) => void
 }
 
 export default function PropertiesPanel({
   selectedComponent,
   onUpdateComponent,
+  onDeleteComponent,
 }: PropertiesPanelProps) {
   if (!selectedComponent) {
     return (
@@ -41,11 +43,30 @@ export default function PropertiesPanel({
     })
   }
 
+  const handleDelete = () => {
+    if (
+      confirm(
+        `Are you sure you want to delete this ${selectedComponent.type} component?`
+      )
+    ) {
+      onDeleteComponent(selectedComponent.id)
+    }
+  }
+
   return (
     <div className="w-80 bg-sidebar border-l border-sidebar-border p-4 overflow-y-auto">
-      <h3 className="text-sm font-medium mb-4 text-muted-foreground uppercase tracking-wide">
-        Properties
-      </h3>
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wide">
+          Properties
+        </h3>
+        <button
+          onClick={handleDelete}
+          className="px-2 py-1 bg-destructive text-white hover:bg-destructive/90 rounded text-xs font-medium transition-colors flex items-center gap-1"
+          title="Delete component"
+        >
+          🗑️ Delete
+        </button>
+      </div>
 
       <div className="space-y-4">
         <div className="bg-card p-3 rounded-lg border border-border">
