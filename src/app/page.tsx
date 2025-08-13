@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import type { EditorComponent } from "../types/editor"
-import { findComponentById } from "../utils/dragDrop"
+import { findComponentById, removeComponentById } from "../utils/dragDrop"
 import ComponentPalette from "../components/ComponentPalette"
 import Canvas from "../components/Canvas"
 import PropertiesPanel from "../components/PropertiesPanel"
@@ -50,13 +50,19 @@ export default function VisualEditor() {
     setComponents(updateComponentInTree(components))
   }
 
+  const handleDeleteComponent = (id: string) => {
+    const updatedComponents = removeComponentById(components, id)
+    setComponents(updatedComponents)
+    setSelectedComponent(null) // Clear selection after deletion
+  }
+
   const handleSelectComponent = (component: EditorComponent | null) => {
     setSelectedComponent(component)
   }
 
   return (
     <div className="h-screen flex flex-col bg-background text-foreground">
-      {/* Header with toggle button */}
+      {/* Header with controls */}
       <div className="bg-background border-b border-border px-6 py-4 flex justify-between items-center">
         <div className="flex items-center gap-3">
           <div className="w-6 h-6 bg-primary rounded-sm flex items-center justify-center">
@@ -66,16 +72,19 @@ export default function VisualEditor() {
             Visual Component Editor
           </h1>
         </div>
-        <button
-          onClick={() => setShowCodePreview(!showCodePreview)}
-          className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 border ${
-            showCodePreview
-              ? "bg-primary text-primary-foreground border-primary hover:bg-primary/90"
-              : "bg-background text-foreground border-border hover:bg-accent hover:text-accent-foreground"
-          }`}
-        >
-          {showCodePreview ? "Hide Code" : "Show Code"}
-        </button>
+
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setShowCodePreview(!showCodePreview)}
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 border ${
+              showCodePreview
+                ? "bg-primary text-primary-foreground border-primary hover:bg-primary/90"
+                : "bg-background text-foreground border-border hover:bg-accent hover:text-accent-foreground"
+            }`}
+          >
+            {showCodePreview ? "Hide Code" : "Show Code"}
+          </button>
+        </div>
       </div>
 
       {/* Main editor area */}
@@ -95,6 +104,7 @@ export default function VisualEditor() {
         <PropertiesPanel
           selectedComponent={selectedComponent}
           onUpdateComponent={handleUpdateComponent}
+          onDeleteComponent={handleDeleteComponent}
         />
 
         {/* Code Preview - conditionally rendered */}
