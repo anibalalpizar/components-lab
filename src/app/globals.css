@@ -28,7 +28,8 @@
   --chart-5: 27 87% 67%;
 }
 
-.dark {
+/* Force dark mode by overriding root variables with dark values */
+:root {
   --background: 0 0% 9%;
   --foreground: 0 0% 98%;
   --card: 0 0% 9%;
