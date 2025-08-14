@@ -1,8 +1,9 @@
 "use client"
 
-import type { EditorComponent, DragItem } from "../types/editor"
-import { createNewComponent } from "../utils/dragDrop"
 import type React from "react"
+
+import { createNewComponent } from "../utils/dragDrop"
+import type { EditorComponent, DragItem } from "../types/editor"
 
 interface CanvasProps {
   components: EditorComponent[]
