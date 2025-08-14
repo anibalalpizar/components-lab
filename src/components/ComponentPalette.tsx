@@ -1,6 +1,7 @@
 "use client"
 
 import type React from "react"
+
 import type { DragItem } from "../types/editor"
 
 const COMPONENT_TYPES = [
