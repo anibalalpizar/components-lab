@@ -1,9 +1,10 @@
 "use client"
 
-import type { EditorComponent } from "../types/editor"
-import { generateTSXCode } from "../utils/codeGenerator"
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism"
+
+import { generateTSXCode } from "../utils/codeGenerator"
+import type { EditorComponent } from "../types/editor"
 
 interface CodePreviewProps {
   components: EditorComponent[]
